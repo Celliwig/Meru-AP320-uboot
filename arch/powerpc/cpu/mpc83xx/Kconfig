@@ -80,6 +80,11 @@ config TARGET_MPC8349ITX
 	select ARCH_MPC8349
 	imply CMD_IRQ
 
+config TARGET_MERU_AP320
+	bool "Support Meru Networks AP320"
+	select ARCH_MPC8349
+	imply CMD_IRQ
+
 config TARGET_MPC837XEMDS
 	bool "Support MPC837XEMDS"
 	select ARCH_MPC837X
@@ -333,6 +338,7 @@ source "board/freescale/mpc837xemds/Kconfig"
 source "board/freescale/mpc837xerdb/Kconfig"
 source "board/ids/ids8313/Kconfig"
 source "board/keymile/Kconfig"
+source "board/meru/ap320/Kconfig"
 source "board/mpc8308_p1m/Kconfig"
 source "board/sbc8349/Kconfig"
 source "board/tqc/tqm834x/Kconfig"
