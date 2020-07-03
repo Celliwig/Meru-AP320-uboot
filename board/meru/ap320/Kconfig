@@ -1,0 +1,12 @@
+if TARGET_MERU_AP320
+
+config SYS_BOARD
+	default "ap320"
+
+config SYS_VENDOR
+	default "meru"
+
+config SYS_CONFIG_NAME
+	default "meru_ap320"
+
+endif
