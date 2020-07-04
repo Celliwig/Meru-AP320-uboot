@@ -44,7 +44,9 @@
  Memory map:
 
  0x0000_0000-0x07FF_FFFF DDR SDRAM (256 MB)
+ 0x8000_0000-0x9FFF_FFFF PCI1 memory space (512 MB)
  0xE000_0000-0xEFFF_FFFF IMMR (1 MB)
+ 0xE200_0000-0xE2FF_FFFF PCI1 I/O space (16 MB)
  0xFF00_0000-0xFFFF_FFFF First 16MB bank of Flash memory
 
 */
@@ -65,23 +67,23 @@
 //#define CONFIG_SYS_USB_HOST	/* use the EHCI USB controller */
 //#endif
 
-//#include <linux/stringify.h>
+#include <linux/stringify.h>
 //#define CONFIG_RTC_DS1337
-//#define CONFIG_SYS_I2C
+#define CONFIG_SYS_I2C
 
-///*
-// * Device configurations
-// */
-///* I2C */
-//#ifdef CONFIG_SYS_I2C
-//#define CONFIG_SYS_I2C_FSL
-//#define CONFIG_SYS_FSL_I2C_SPEED	400000
-//#define CONFIG_SYS_FSL_I2C_SLAVE	0x7F
-//#define CONFIG_SYS_FSL_I2C_OFFSET	0x3000
-//#define CONFIG_SYS_FSL_I2C2_SPEED	400000
-//#define CONFIG_SYS_FSL_I2C2_SLAVE	0x7F
-//#define CONFIG_SYS_FSL_I2C2_OFFSET	0x3100
-//
+/*
+ * Device configurations
+ */
+/* I2C */
+#ifdef CONFIG_SYS_I2C
+#define CONFIG_SYS_I2C_FSL
+#define CONFIG_SYS_FSL_I2C_SPEED	400000
+#define CONFIG_SYS_FSL_I2C_SLAVE	0x7F
+#define CONFIG_SYS_FSL_I2C_OFFSET	0x3000
+#define CONFIG_SYS_FSL_I2C2_SPEED	400000
+#define CONFIG_SYS_FSL_I2C2_SLAVE	0x7F
+#define CONFIG_SYS_FSL_I2C2_OFFSET	0x3100
+
 //#define CONFIG_SYS_SPD_BUS_NUM		1	/* The I2C bus for SPD */
 //#define CONFIG_SYS_RTC_BUS_NUM		1	/* The I2C bus for RTC */
 //
@@ -105,8 +107,8 @@
 //#define I2C_8574_MPCICLKRN	0x10	/* MiniPCI Clk Run */
 //#define I2C_8574_PCI66		0x20	/* 0=33MHz PCI, 1=66MHz PCI */
 //#define I2C_8574_FLASHSIDE	0x40	/* 0=Reset vector from U4, 1=from U7*/
-//
-//#endif
+
+#endif
 
 ///* Compact Flash */
 //#ifdef CONFIG_COMPACT_FLASH

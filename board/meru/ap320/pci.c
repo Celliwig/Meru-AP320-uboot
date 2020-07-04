@@ -70,21 +70,7 @@ void pci_init_board(void)
 #endif
 	u8 reg8;
 
-#if defined(CONFIG_SYS_I2C)
-	i2c_set_bus_num(1);
-	/* Read the PCI_M66EN jumper setting */
-	if ((i2c_read(CONFIG_SYS_I2C_8574_ADDR2, 0, 0, &reg8, sizeof(reg8)) == 0) ||
-	    (i2c_read(CONFIG_SYS_I2C_8574A_ADDR2, 0, 0, &reg8, sizeof(reg8)) == 0)) {
-		if (reg8 & I2C_8574_PCI66)
-			clk->occr = 0xff000000;	/* 66 MHz PCI */
-		else
-			clk->occr = 0xff600001;	/* 33 MHz PCI */
-	} else {
-		clk->occr = 0xff600001;	/* 33 MHz PCI */
-	}
-#else
 	clk->occr = 0xff000000;	/* 66 MHz PCI */
-#endif
 	udelay(2000);
 
 	/* Configure PCI Local Access Windows */
