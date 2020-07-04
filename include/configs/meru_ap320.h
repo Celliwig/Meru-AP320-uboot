@@ -343,8 +343,9 @@
 // */
 //#define CONFIG_BOOTP_BOOTFILESIZE
 
-///* Watchdog */
-//#undef CONFIG_WATCHDOG		/* watchdog disabled */
+/* Watchdog */
+#define CONFIG_WATCHDOG					/* watchdog enabled */
+#define CONFIG_SYS_WATCHDOG_VALUE	0xFFFF
 
 /*
  * Miscellaneous configurable options
