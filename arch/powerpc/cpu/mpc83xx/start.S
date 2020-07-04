@@ -175,6 +175,13 @@ _start: /* time t 0 */
 	lwz	r6, IMMRBAR(r3)
 	isync
 
+	lis	r19, -0x2000		/* Configure GPIO dir */
+	ori	r19, r19, 0xc00
+	lis	r18, 0x3f80
+	stw	r18, 0(r19)
+	lis	r18, 0x3e80		/* Status: Red */
+	stw	r18, 8(r19)
+
 	/* Initialise the E300 processor core		*/
 	/*------------------------------------------*/
 
