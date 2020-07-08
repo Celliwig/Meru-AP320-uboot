@@ -175,6 +175,9 @@ int checkboard(void)
  */
 int misc_init_f(void)
 {
+	unsigned int *gpio_reg = 0xE0000c08;
+	*gpio_reg = 0x3d800000;			// Status LED to green
+
 //#ifdef CONFIG_VSC7385_ENET
 //	volatile u32 *vsc7385_cpuctrl;
 //
