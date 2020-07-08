@@ -18,6 +18,7 @@ dtb-$(CONFIG_TARGET_T2080RDB) += t2080rdb.dtb
 dtb-$(CONFIG_TARGET_T4240RDB) += t4240rdb.dtb
 dtb-$(CONFIG_TARGET_MCR3000) += mcr3000.dtb
 dtb-$(CONFIG_TARGET_GAZERBEAM) += gazerbeam.dtb
+dtb-$(CONFIG_TARGET_MERU_AP320) += meru-ap320.dtb
 
 targets += $(dtb-y)
 
