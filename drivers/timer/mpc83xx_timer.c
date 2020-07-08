@@ -112,6 +112,7 @@ int interrupt_init(void)
 
 	timer_priv = dev_get_priv(timer);
 
+#if defined(CONFIG_BOARD)
 	if (board_get(&board)) {
 		debug("%s: board device could not be fetched.\n", __func__);
 		return -ENOENT;
@@ -126,6 +127,9 @@ int interrupt_init(void)
 	}
 
 	ret = clk_get_by_index(csb, 0, &clock);
+#else
+	ret = clk_get_by_index(timer, 0, &clock);
+#endif
 	if (ret) {
 		debug("%s: Could not retrieve clock (error: %d)",
 		      __func__, ret);
@@ -170,7 +174,7 @@ void timer_interrupt(struct pt_regs *regs)
 	priv->timestamp++;
 
 #if defined(CONFIG_WATCHDOG) || defined(CONFIG_HW_WATCHDOG)
-	if ((timestamp % (CONFIG_SYS_WATCHDOG_FREQ)) == 0)
+	if ((priv->timestamp % (CONFIG_SYS_WATCHDOG_FREQ)) == 0)
 		WATCHDOG_RESET();
 #endif    /* CONFIG_WATCHDOG || CONFIG_HW_WATCHDOG */
 
