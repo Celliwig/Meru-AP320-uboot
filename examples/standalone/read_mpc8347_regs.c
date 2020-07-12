@@ -55,6 +55,10 @@ int read_mpc8347_immr(int argc, char *const argv[])
 	printf("\tSPRG6: %x\n", tmp_reg);
 	asm("mfspr %0, 0x117" : "=r" (tmp_reg));
 	printf("\tSPRG7: %x\n", tmp_reg);
+	asm("mfspr %0, 0x11E" : "=r" (tmp_reg));
+	printf("\tSVR: %x\n", tmp_reg);
+	asm("mfspr %0, 0x11F" : "=r" (tmp_reg));
+	printf("\tPVR: %x\n", tmp_reg);
 
 	printf("\nMMU reg\n");
 	asm("mfspr %0, 0x210" : "=r" (tmp_reg));
