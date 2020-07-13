@@ -865,11 +865,17 @@ int tsec_probe(struct udevice *dev)
 	if (priv->interface == PHY_INTERFACE_MODE_SGMII)
 		priv->flags |= TSEC_SGMII;
 
+#ifndef CONFIG_DM_MDIO
 	mdio_info.regs = ext_phyregs_mii;
 	mdio_info.name = (char *)dev->name;
 	ret = fsl_pq_mdio_init(NULL, &mdio_info);
 	if (ret)
 		return ret;
+#else
+	/* Probably a better way, but */
+	/* Probe MDIO devices */
+	dm_mdio_probe_devices();
+#endif
 
 	/* Reset the MAC */
 	setbits_be32(&priv->regs->maccfg1, MACCFG1_SOFT_RESET);
@@ -877,7 +883,19 @@ int tsec_probe(struct udevice *dev)
 	clrbits_be32(&priv->regs->maccfg1, MACCFG1_SOFT_RESET);
 
 	priv->dev = dev;
+#ifndef CONFIG_DM_MDIO
 	priv->bus = miiphy_get_dev_by_name(dev->name);
+	if (!priv->bus) {
+		printf("MII PHY: %s not found.\n", dev->name);
+		return -ENOENT;
+	}
+#else
+	priv->bus = miiphy_get_dev_by_name(ofnode_get_name(parent));
+	if (!priv->bus) {
+		printf("DM MII PHY: %s not found.\n", ofnode_get_name(parent));
+		return -ENOENT;
+	}
+#endif
 
 	/* Try to initialize PHY here, and return */
 	return !init_phy(priv);
