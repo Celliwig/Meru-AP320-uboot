@@ -147,6 +147,7 @@ static inline int _log_nop(enum log_category_t cat, enum log_level_t level,
 	})
 #else
 #define log(_cat, _level, _fmt, _args...)
+#define log(_cat, _level, _fmt, _args...)	debug(_fmt, ##_args)
 #endif
 
 #define log_nop(_cat, _level, _fmt, _args...) ({ \
