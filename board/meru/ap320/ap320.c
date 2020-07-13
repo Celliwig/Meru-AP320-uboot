@@ -15,7 +15,7 @@
 #include <mpc83xx.h>
 #include <i2c.h>
 #include <miiphy.h>
-#include <vsc7385.h>
+#include <led.h>
 #ifdef CONFIG_PCI
 #include <asm/mpc8349_pci.h>
 #include <pci.h>
@@ -201,6 +201,10 @@ int misc_init_f(void)
 int misc_init_r(void)
 {
 	int rc = 0;
+
+#ifdef CONFIG_LED
+	led_default_state();
+#endif /* CONFIG_LED */
 
 #if defined(CONFIG_SYS_I2C)
 	unsigned int orig_bus = i2c_get_bus_num();

@@ -452,34 +452,41 @@
 			rf1_red {
 				label = "rf1_red";
 				gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
+				default-state = "off";
 			};
 			rf1_green {
 				label = "rf1_green";
 				gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+				default-state = "off";
 			};
 
 			// RF2
 			rf2_red {
 				label = "rf2_red";
 				gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
+				default-state = "off";
 			};
 			rf2_green {
 				label = "rf2_green";
 				gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
+				default-state = "off";
 			};
 
 			// Status
 			status_green {
 				label = "status_green";
 				gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
+				default-state = "off";
 			};
 			status_red {
 				label = "status_red";
 				gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
+				default-state = "off";
 			};
 			status_blue {
 				label = "status_blue";
 				gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
+				default-state = "on";
 			};
 		};
 	};
