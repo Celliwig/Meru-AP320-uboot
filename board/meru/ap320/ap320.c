@@ -3,9 +3,9 @@
  * Copyright (C) Freescale Semiconductor, Inc. 2006.
  */
 
-#define DEBUG
-#undef CONFIG_LOGLEVEL
-#define CONFIG_LOGLEVEL 8
+//#define DEBUG
+//#undef CONFIG_LOGLEVEL
+//#define CONFIG_LOGLEVEL 8
 
 #include <common.h>
 #include <fdt_support.h>
