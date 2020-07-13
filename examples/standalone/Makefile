@@ -3,7 +3,7 @@
 # (C) Copyright 2000-2006
 # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
 
-extra-y        := hello_world read_mpc8347_regs
+extra-y        := hello_world read_mpc8347_regs read_mpc8347_mii_phy
 extra-$(CONFIG_SMC91111)           += smc91111_eeprom
 extra-$(CONFIG_SPI_FLASH_ATMEL)    += atmel_df_pow2
 extra-$(CONFIG_PPC)                += sched
