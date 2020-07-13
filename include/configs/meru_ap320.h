@@ -184,6 +184,11 @@
 //#define CONFIG_SYS_DDR_SDRAM_MODE2	0x40006000
 #define CONFIG_SYS_DDR_SDRAM_INTERVAL	0x08200100
 
+#define CONFIG_SYS_DDRCDR		DDRCDR_EN | \
+					DDRCDR_PZ_NOMZ | \
+					DDRCDR_NZ_NOMZ | \
+					DDRCDR_M_ODR
+
 /*
  *Flash on the Local Bus
  */
@@ -232,7 +237,8 @@
 
 #define CONFIG_SYS_INIT_RAM_LOCK
 #define CONFIG_SYS_INIT_RAM_ADDR	0xE4010000	/* Initial RAM addr (From previous version) */
-#define CONFIG_SYS_INIT_RAM_SIZE	0x1000		/* Size of used area in RAM*/
+#define CONFIG_SYS_INIT_RAM_SIZE	0x4000		/* Size of used area in RAM*/
+//#define CONFIG_SYS_MALLOC_F_LEN		0x3000		/* 8k for simple malloc */
 
 #define CONFIG_SYS_GBL_DATA_OFFSET	\
 			(CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
@@ -247,7 +253,7 @@
  */
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	1
-#define CONFIG_SYS_NS16550_CLK		get_bus_freq(0)
+//#define CONFIG_SYS_NS16550_CLK		get_bus_freq(0)
 
 #define CONFIG_SYS_BAUDRATE_TABLE  \
 		{300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 115200}
@@ -305,32 +311,31 @@
 
 #endif
 
-///* TSEC */
-//#ifdef CONFIG_TSEC_ENET
-//#define CONFIG_TSEC1
-//
-//#ifdef CONFIG_TSEC1
-//#define CONFIG_HAS_ETH0
-//#define CONFIG_TSEC1_NAME  "TSEC0"
-//#define CONFIG_SYS_TSEC1_OFFSET	0x24000
-//#define TSEC1_PHY_ADDR		0x1c	/* VSC8201 uses address 0x1c */
-//#define TSEC1_PHYIDX		0
-//#define TSEC1_FLAGS		TSEC_GIGABIT
-//#endif
-//
-//#ifdef CONFIG_TSEC2
-//#define CONFIG_HAS_ETH1
-//#define CONFIG_TSEC2_NAME  "TSEC1"
-//#define CONFIG_SYS_TSEC2_OFFSET	0x25000
-//
-//#define TSEC2_PHY_ADDR		4
-//#define TSEC2_PHYIDX		0
-//#define TSEC2_FLAGS		TSEC_GIGABIT
-//#endif
-//
-//#define CONFIG_ETHPRIME		"Freescale TSEC"
-//
-//#endif
+/* TSEC */
+#ifdef CONFIG_TSEC_ENET
+#define CONFIG_TSEC1
+
+#ifdef CONFIG_TSEC1
+#define CONFIG_HAS_ETH0
+#define CONFIG_TSEC1_NAME	"TSEC0"
+#define CONFIG_SYS_TSEC1_OFFSET	0x24000
+#define TSEC1_PHY_ADDR		0x1c	/* Vitesse 8601 uses address 0x1c */
+#define TSEC1_PHYIDX		0
+#define TSEC1_FLAGS		TSEC_GIGABIT
+#endif
+
+#ifdef CONFIG_TSEC2
+#define CONFIG_HAS_ETH1
+#define CONFIG_TSEC2_NAME	"TSEC1"
+#define CONFIG_SYS_TSEC2_OFFSET	0x25000
+#define TSEC2_PHY_ADDR		4
+#define TSEC2_PHYIDX		0
+#define TSEC2_FLAGS		TSEC_GIGABIT
+#endif
+
+#define CONFIG_ETHPRIME		"Freescale TSEC"
+
+#endif
 
 /*
  * Environment
@@ -346,8 +351,9 @@
 //#define CONFIG_BOOTP_BOOTFILESIZE
 
 /* Watchdog */
-#define CONFIG_WATCHDOG					/* watchdog enabled */
+//#define CONFIG_WATCHDOG					/* watchdog enabled */
 #define CONFIG_SYS_WATCHDOG_VALUE	0xFFFF
+#define CONFIG_SYS_WATCHDOG_FREQ	(CONFIG_SYS_HZ / 2)
 
 /*
  * Miscellaneous configurable options
@@ -364,19 +370,36 @@
 #define CONFIG_SYS_BOOTMAPSZ	(256 << 20)
 #define CONFIG_SYS_BOOTM_LEN	(64 << 20)	/* Increase max gunzip size */
 
-///*
-// * System performance
-// */
-//#define CONFIG_SYS_SCCR_TSEC1CM	1	/* TSEC1 clock mode (0-3) */
-//#define CONFIG_SYS_SCCR_TSEC2CM	1	/* TSEC2 & I2C0 clock mode (0-3) */
-//#define CONFIG_SYS_SCCR_USBMPHCM 3	/* USB MPH controller's clock */
+/*
+ * System performance
+ */
+#define CONFIG_SYS_SCCR_TSEC1CM		3	/* TSEC1 clock mode (0-3) */
+#define CONFIG_SYS_SCCR_TSEC2CM		3	/* TSEC2 & I2C0 clock mode (0-3) */
+//#define CONFIG_SYS_SCCR_USBMPHCM 	3	/* USB MPH controller's clock */
 //#define CONFIG_SYS_SCCR_USBDRCM	0	/* USB DR controller's clock */
 
-///*
-// * System IO Config
-// */
-///* Needed for gigabit to work on TSEC 1 */
-//#define CONFIG_SYS_SICRH SICRH_TSOBI1
+/*
+ * System IO Config
+ */
+/* Needed for gigabit to work on TSEC 1 */
+#define CONFIG_SYS_SICRL	SICRL_LDP_A
+#define CONFIG_SYS_SICRH	SICRH_TSEC1_A | \
+				SICRH_TSEC1_B | \
+				SICRH_TSEC1_C | \
+				SICRH_TSEC1_D | \
+				SICRH_TSEC1_E | \
+				SICRH_TSEC1_F | \
+				SICRH_TSEC2_A | \
+				SICRH_TSEC2_B | \
+				SICRH_TSEC2_C | \
+				SICRH_TSEC2_D | \
+				SICRH_TSEC2_E | \
+				SICRH_TSEC2_F | \
+				SICRH_TSEC2_G | \
+				SICRH_TSEC2_H | \
+				SICRH_TSOBI1 | \
+				SICRH_TSOBI2
+
 //				/* USB DR as device + USB MPH as host */
 //#define CONFIG_SYS_SICRL	(SICRL_LDP_A | SICRL_USB1)
 //
