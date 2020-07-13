@@ -234,8 +234,9 @@ in_flash:
 	 * board_early_init_f (EVB only).
 	 */
 	/* enable address translation */
-	bl	enable_addr_trans
-	sync
+//	bl	enable_addr_trans			// Disabled, will cause a reset if enabled
+//	sync						// Original u-boot build does the same
+							// Known bug? (https://lists.denx.de/pipermail/u-boot/2006-July/016118.html)
 
 	/* enable the data cache */
 	bl	dcache_enable
