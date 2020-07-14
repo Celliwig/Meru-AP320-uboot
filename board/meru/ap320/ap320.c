@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) Freescale Semiconductor, Inc. 2006.
+ *
+ * Celliwig - 2020
  */
 
 //#define DEBUG
@@ -100,7 +102,7 @@ int fixed_sdram(void)
  * Initialize PCI Devices, report devices found
  */
 #ifndef CONFIG_PCI_PNP
-static struct pci_config_table pci_mpc83xxmitx_config_table[] = {
+static struct pci_config_table pci_meru_ap320_config_table[] = {
 	{
 	 PCI_ANY_ID,
 	 PCI_ANY_ID,
@@ -121,12 +123,12 @@ static struct pci_config_table pci_mpc83xxmitx_config_table[] = {
 volatile static struct pci_controller hose[] = {
 	{
 #ifndef CONFIG_PCI_PNP
-	      config_table:pci_mpc83xxmitx_config_table,
+	      config_table:pci_meru_ap320_config_table,
 #endif
 	 },
 	{
 #ifndef CONFIG_PCI_PNP
-	      config_table:pci_mpc83xxmitx_config_table,
+	      config_table:pci_meru_ap320_config_table,
 #endif
 	 }
 };
@@ -203,7 +205,7 @@ int misc_init_r(void)
 	int rc = 0;
 
 #ifdef CONFIG_LED
-	led_default_state();
+	led_default_state();			// Status LED to blue
 #endif /* CONFIG_LED */
 
 #if defined(CONFIG_SYS_I2C)
