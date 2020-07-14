@@ -67,7 +67,9 @@ static void boot_jump_linux(bootm_headers_t *images)
 #endif
 
 #if defined(CONFIG_SYS_INIT_RAM_LOCK) && !defined(CONFIG_E500)
-	unlock_ram_in_cache();
+	dcache_disable();
+	dcache_enable();
+//	unlock_ram_in_cache();
 #endif
 
 #if defined(CONFIG_OF_LIBFDT)
