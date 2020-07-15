@@ -49,8 +49,8 @@
 			bus-frequency = <264000000>;		// Should be from bootloader
 			clock-frequency = <528000000>;		// Should be from bootloader
 
-			clocks = <&socclocks MPC83XX_CLK_CORE
-				&socclocks MPC83XX_CLK_CSB>;
+			clocks = <&socclocks MPC83XX_CLK_CORE>,
+				<&socclocks MPC83XX_CLK_CSB>;
 		};
 	};
 
