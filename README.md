@@ -1,5 +1,4 @@
-# Meru-AP320-uboot
-U-Boot for the Meru Networks AP320.
+# Meru AP320 U-boot
 
 ## WARNING!!!
 This has been produced by examining the configuration of the device while the original U-boot was running, not by reversing the binary image.
