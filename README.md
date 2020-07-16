@@ -4,7 +4,12 @@ U-Boot for the Meru Networks AP320.
 ## WARNING!!!
 This has been produced by examining the configuration of the device while the original U-boot was running, not by reversing the binary image.
 The upshot of this is that all configuration has been for my device, and any variation in the chipsets (DRAM/PHY/etc) will not have been taken
-in to account. So whether this will work on any other device is hard to say (YMMV). So the usual boilerplate applies, no warraties implied or given.
+in to account. So whether this will work on any other device is hard to say (YMMV). So the usual boilerplate applies, no warranties implied or given.
+
+### JTAG
+It is highly recommended to have access to a JTAG adapter in case of failure. There is __NO WAY TO RECOVER A BRICKED DEVICE__ without one (well that,
+or using a soldering iron and device programmer). Before starting, backing up the existing ROM is recommended, or at the very least everything from 
+__0xfff00000__ to capture U-boot and environment.
 
 ## Compilation
 Assuming cross compilation:
