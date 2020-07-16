@@ -56,7 +56,7 @@ void spl_invoke_opensbi(struct spl_image_info *spl_image)
 	/* Find U-Boot image in /fit-images */
 	ret = spl_opensbi_find_uboot_node(spl_image->fdt_addr, &uboot_node);
 	if (ret) {
-		pr_err("Can't find U-Boot node, %d", ret);
+		pr_err("Can't find U-Boot node, %d\n", ret);
 		hang();
 	}
 
@@ -79,6 +79,11 @@ void spl_invoke_opensbi(struct spl_image_info *spl_image)
 	invalidate_icache_all();
 
 #ifdef CONFIG_SPL_SMP
+	/* Initialize the IPI before we use it */
+	ret = riscv_init_ipi();
+	if (ret)
+		hang();
+
 	/*
 	 * Start OpenSBI on all secondary harts and wait for acknowledgment.
 	 *

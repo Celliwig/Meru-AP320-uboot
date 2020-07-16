@@ -27,17 +27,16 @@ static inline const struct clk_ops *clk_dev_ops(struct udevice *dev)
 
 #if CONFIG_IS_ENABLED(OF_CONTROL)
 # if CONFIG_IS_ENABLED(OF_PLATDATA)
-int clk_get_by_index_platdata(struct udevice *dev, int index,
-			      struct phandle_1_arg *cells, struct clk *clk)
+int clk_get_by_driver_info(struct udevice *dev, struct phandle_1_arg *cells,
+			   struct clk *clk)
 {
 	int ret;
 
-	if (index != 0)
-		return -ENOSYS;
-	ret = uclass_get_device(UCLASS_CLK, 0, &clk->dev);
+	ret = device_get_by_driver_info((struct driver_info *)cells->node,
+					&clk->dev);
 	if (ret)
 		return ret;
-	clk->id = cells[0].arg[0];
+	clk->id = cells->arg[0];
 
 	return 0;
 }
@@ -123,7 +122,7 @@ static int clk_get_by_indexed_prop(struct udevice *dev, const char *prop_name,
 
 
 	return clk_get_by_index_tail(ret, dev_ofnode(dev), &args, "clocks",
-				     index > 0, clk);
+				     index, clk);
 }
 
 int clk_get_by_index(struct udevice *dev, int index, struct clk *clk)
@@ -135,7 +134,7 @@ int clk_get_by_index(struct udevice *dev, int index, struct clk *clk)
 					 index, &args);
 
 	return clk_get_by_index_tail(ret, dev_ofnode(dev), &args, "clocks",
-				     index > 0, clk);
+				     index, clk);
 }
 
 int clk_get_by_index_nodev(ofnode node, int index, struct clk *clk)
@@ -144,10 +143,10 @@ int clk_get_by_index_nodev(ofnode node, int index, struct clk *clk)
 	int ret;
 
 	ret = ofnode_parse_phandle_with_args(node, "clocks", "#clock-cells", 0,
-					     index > 0, &args);
+					     index, &args);
 
 	return clk_get_by_index_tail(ret, node, &args, "clocks",
-				     index > 0, clk);
+				     index, clk);
 }
 
 int clk_get_bulk(struct udevice *dev, struct clk_bulk *bulk)

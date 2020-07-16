@@ -537,7 +537,7 @@ static int reserve_fdt(void)
 	 * will be relocated with other data.
 	 */
 	if (gd->fdt_blob) {
-		gd->fdt_size = ALIGN(fdt_totalsize(gd->fdt_blob) + 0x1000, 32);
+		gd->fdt_size = ALIGN(fdt_totalsize(gd->fdt_blob), 32);
 
 		gd->start_addr_sp = reserve_stack_aligned(gd->fdt_size);
 		gd->new_fdt = map_sysmem(gd->start_addr_sp, gd->fdt_size);
@@ -670,7 +670,7 @@ static int reloc_fdt(void)
 	if (gd->flags & GD_FLG_SKIP_RELOC)
 		return 0;
 	if (gd->new_fdt) {
-		memcpy(gd->new_fdt, gd->fdt_blob, gd->fdt_size);
+		memcpy(gd->new_fdt, gd->fdt_blob, fdt_totalsize(gd->fdt_blob));
 		gd->fdt_blob = gd->new_fdt;
 	}
 #endif

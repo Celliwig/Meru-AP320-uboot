@@ -193,6 +193,12 @@ config CMD_E1000
 	  used on devices with SPI support you can reprogram the EEPROM from
 	  U-Boot.
 
+config EEPRO100
+	bool "Intel PRO/100 82557/82559/82559ER Fast Ethernet support"
+	help
+	  This driver supports Intel(R) PRO/100 82557/82559/82559ER fast
+	  ethernet family of adapters.
+
 config ETH_SANDBOX
 	depends on DM_ETH && SANDBOX
 	default y
@@ -231,6 +237,13 @@ config ETH_DESIGNWARE_SOCFPGA
 	  The Altera SoCFPGA requires additional configuration of the
 	  Altera system manager to correctly interface with the PHY.
 	  This code handles those SoC specifics.
+
+config ETH_DESIGNWARE_S700
+	bool "Actins S700 glue driver for Synopsys Designware Ethernet MAC"
+	depends on DM_ETH && ETH_DESIGNWARE
+	help
+	  This provides glue layer to use Synopsys Designware Ethernet MAC
+	  present on Actions S700 SoC.
 
 config ETHOC
 	bool "OpenCores 10/100 Mbps Ethernet MAC"
@@ -391,6 +404,12 @@ config MII
 	bool "Enable MII"
 	help
 	  Enable support of the Media-Independent Interface (MII)
+
+config PCNET
+	bool "AMD PCnet series Ethernet controller driver"
+	help
+	  This driver supports AMD PCnet series fast ethernet family of
+	  PCI chipsets/adapters.
 
 config RTL8139
 	bool "Realtek 8139 series Ethernet controller driver"

@@ -15,6 +15,8 @@ config EFI_LOADER
 	select HAVE_BLOCK_DEVICE
 	select REGEX
 	imply CFB_CONSOLE_ANSI
+	imply FAT
+	imply FAT_WRITE
 	imply USB_KEYBOARD_FN_KEYS
 	imply VIDEO_ANSI
 	help
@@ -24,6 +26,14 @@ config EFI_LOADER
 	  reuse U-Boot's device drivers.
 
 if EFI_LOADER
+
+config EFI_VARIABLE_FILE_STORE
+	bool "Store non-volatile UEFI variables as file"
+	depends on FAT_WRITE
+	default y
+	help
+	  Select tis option if you want non-volatile UEFI variables to be stored
+	  as file /ubootefi.var on the EFI system partition.
 
 config EFI_GET_TIME
 	bool "GetTime() runtime service"

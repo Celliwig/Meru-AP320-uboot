@@ -250,7 +250,7 @@ script:
      virtualenv -p /usr/bin/python3 /tmp/venv;
      . /tmp/venv/bin/activate;
      pip install -r test/py/requirements.txt;
-     ./test/py/test.py --bd ${TEST_PY_BD} ${TEST_PY_ID}
+     ./test/py/test.py -ra --bd ${TEST_PY_BD} ${TEST_PY_ID}
        ${TEST_PY_TEST_SPEC:+"-k ${TEST_PY_TEST_SPEC}"}
        --build-dir "$UBOOT_TRAVIS_BUILD_DIR" || exit;
      if [[ -n "${TEST_PY_TOOLS}" ]]; then
@@ -571,6 +571,34 @@ matrix:
       env:
         - TEST_PY_BD="qemu_mips64el"
           TEST_PY_TEST_SPEC="not sleep"
+          QEMU_TARGET="mips64el-softmmu"
+          TOOLCHAIN="mips"
+    - name: "test/py qemu-malta"
+      env:
+        - TEST_PY_BD="malta"
+          TEST_PY_TEST_SPEC="not sleep and not efi"
+          TEST_PY_ID="--id qemu"
+          QEMU_TARGET="mips-softmmu"
+          TOOLCHAIN="mips"
+    - name: "test/py qemu-maltael"
+      env:
+        - TEST_PY_BD="maltael"
+          TEST_PY_TEST_SPEC="not sleep and not efi"
+          TEST_PY_ID="--id qemu"
+          QEMU_TARGET="mipsel-softmmu"
+          TOOLCHAIN="mips"
+    - name: "test/py qemu-malta64"
+      env:
+        - TEST_PY_BD="malta64"
+          TEST_PY_TEST_SPEC="not sleep and not efi"
+          TEST_PY_ID="--id qemu"
+          QEMU_TARGET="mips64-softmmu"
+          TOOLCHAIN="mips"
+    - name: "test/py qemu-malta64el"
+      env:
+        - TEST_PY_BD="malta64el"
+          TEST_PY_TEST_SPEC="not sleep and not efi"
+          TEST_PY_ID="--id qemu"
           QEMU_TARGET="mips64el-softmmu"
           TOOLCHAIN="mips"
     - name: "test/py qemu-ppce500"

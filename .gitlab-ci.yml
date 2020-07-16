@@ -20,10 +20,6 @@ stages:
     - ln -s travis-ci /tmp/uboot-test-hooks/py/`hostname`
     - grub-mkimage --prefix="" -o ~/grub_x86.efi -O i386-efi normal  echo lsefimmap lsefi lsefisystab efinet tftp minicmd
     - grub-mkimage --prefix="" -o ~/grub_x64.efi -O x86_64-efi normal  echo lsefimmap lsefi lsefisystab efinet tftp minicmd
-    - cp /opt/grub/grubriscv64.efi ~/grub_riscv64.efi
-    - cp /opt/grub/grubriscv32.efi ~/grub_riscv32.efi
-    - cp /opt/grub/grubaa64.efi ~/grub_arm64.efi
-    - cp /opt/grub/grubarm.efi ~/grub_arm.efi
     - if [[ "${TEST_PY_BD}" == "qemu-riscv32_spl" ]]; then
         wget -O - https://github.com/riscv/opensbi/releases/download/v0.6/opensbi-0.6-rv32-bin.tar.xz | tar -C /tmp -xJ;
         export OPENSBI=/tmp/opensbi-0.6-rv32-bin/platform/qemu/virt/firmware/fw_dynamic.bin;
@@ -40,13 +36,19 @@ stages:
     - export UBOOT_TRAVIS_BUILD_DIR=/tmp/${TEST_PY_BD}
     - tools/buildman/buildman -o ${UBOOT_TRAVIS_BUILD_DIR} -w -E -W -e
         --board ${TEST_PY_BD} ${OVERRIDE}
+    - cp ~/grub_x86.efi $UBOOT_TRAVIS_BUILD_DIR/
+    - cp ~/grub_x64.efi $UBOOT_TRAVIS_BUILD_DIR/
+    - cp /opt/grub/grubriscv64.efi $UBOOT_TRAVIS_BUILD_DIR/grub_riscv64.efi
+    - cp /opt/grub/grubriscv32.efi $UBOOT_TRAVIS_BUILD_DIR/grub_riscv32.efi
+    - cp /opt/grub/grubaa64.efi $UBOOT_TRAVIS_BUILD_DIR/grub_arm64.efi
+    - cp /opt/grub/grubarm.efi $UBOOT_TRAVIS_BUILD_DIR/grub_arm.efi
     - virtualenv -p /usr/bin/python3 /tmp/venv
     - . /tmp/venv/bin/activate
     - pip install -r test/py/requirements.txt
     # "${var:+"-k $var"}" expands to "" if $var is empty, "-k $var" if not
     - export PATH=/opt/qemu/bin:/tmp/uboot-test-hooks/bin:${PATH};
       export PYTHONPATH=/tmp/uboot-test-hooks/py/travis-ci;
-      ./test/py/test.py --bd ${TEST_PY_BD} ${TEST_PY_ID}
+      ./test/py/test.py -ra --bd ${TEST_PY_BD} ${TEST_PY_ID}
         ${TEST_PY_TEST_SPEC:+"-k ${TEST_PY_TEST_SPEC}"}
         --build-dir "$UBOOT_TRAVIS_BUILD_DIR"
 
@@ -274,6 +276,38 @@ qemu_mips64el test.py:
   variables:
     TEST_PY_BD: "qemu_mips64el"
     TEST_PY_TEST_SPEC: "not sleep"
+  <<: *buildman_and_testpy_dfn
+
+qemu_malta test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "malta"
+    TEST_PY_TEST_SPEC: "not sleep and not efi"
+    TEST_PY_ID: "--id qemu"
+  <<: *buildman_and_testpy_dfn
+
+qemu_maltael test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "maltael"
+    TEST_PY_TEST_SPEC: "not sleep and not efi"
+    TEST_PY_ID: "--id qemu"
+  <<: *buildman_and_testpy_dfn
+
+qemu_malta64 test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "malta64"
+    TEST_PY_TEST_SPEC: "not sleep and not efi"
+    TEST_PY_ID: "--id qemu"
+  <<: *buildman_and_testpy_dfn
+
+qemu_malta64el test.py:
+  tags: [ 'all' ]
+  variables:
+    TEST_PY_BD: "malta64el"
+    TEST_PY_TEST_SPEC: "not sleep and not efi"
+    TEST_PY_ID: "--id qemu"
   <<: *buildman_and_testpy_dfn
 
 qemu-ppce500 test.py:

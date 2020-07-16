@@ -92,6 +92,7 @@ dtb-$(CONFIG_ROCKCHIP_RK3288) += \
 	rk3288-phycore-rdk.dtb \
 	rk3288-popmetal.dtb \
 	rk3288-rock2-square.dtb \
+	rk3288-rock-pi-n8.dtb \
 	rk3288-tinker.dtb \
 	rk3288-tinker-s.dtb \
 	rk3288-veyron-jerry.dtb \
@@ -136,7 +137,8 @@ dtb-$(CONFIG_ROCKCHIP_RK3399) += \
 	rk3399-roc-pc-mezzanine.dtb \
 	rk3399-rock-pi-4.dtb \
 	rk3399-rock960.dtb \
-	rk3399-rockpro64.dtb
+	rk3399-rockpro64.dtb \
+	rk3399pro-rock-pi-n10.dtb
 
 dtb-$(CONFIG_ROCKCHIP_RV1108) += \
 	rv1108-elgin-r1.dtb \
@@ -161,6 +163,7 @@ dtb-$(CONFIG_ARCH_MESON) += \
 	meson-g12b-odroid-n2.dtb \
 	meson-g12b-a311d-khadas-vim3.dtb \
 	meson-sm1-khadas-vim3l.dtb \
+	meson-sm1-odroid-c4.dtb \
 	meson-sm1-sei610.dtb
 dtb-$(CONFIG_ARCH_TEGRA) += tegra20-harmony.dtb \
 	tegra20-medcom-wide.dtb \
@@ -280,6 +283,7 @@ dtb-$(CONFIG_ARCH_ZYNQMP) += \
 	zynqmp-mini-emmc1.dtb			\
 	zynqmp-mini-nand.dtb			\
 	zynqmp-mini-qspi.dtb			\
+	zynqmp-topic-miamimp-xilinx-xdp-v1r1.dtb	\
 	zynqmp-zcu100-revC.dtb			\
 	zynqmp-zcu102-revA.dtb			\
 	zynqmp-zcu102-revB.dtb			\
@@ -847,6 +851,17 @@ dtb-$(CONFIG_TARGET_OMAP3_BEAGLE) += \
 
 dtb-$(CONFIG_TARGET_OMAP3_IGEP00X0) += \
 	omap3-igep0020.dtb
+
+dtb-$(CONFIG_TARGET_OMAP4_PANDA) += \
+	omap4-panda.dtb \
+	omap4-panda-es.dtb
+
+dtb-$(CONFIG_TARGET_OMAP4_SDP4430) += \
+	omap4-sdp.dtb \
+	omap4-sdp-es23plus.dtb
+
+dtb-$(CONFIG_TARGET_OMAP5_UEVM) += \
+	omap5-uevm.dtb
 
 dtb-$(CONFIG_TARGET_SAMA5D2_PTC_EK) += \
 	at91-sama5d2_ptc_ek.dtb

@@ -233,11 +233,6 @@
 
 #define CONFIG_ENABLE_36BIT_PHYS
 
-#ifdef CONFIG_PHYS_64BIT
-#define CONFIG_ADDR_MAP			1
-#define CONFIG_SYS_NUM_ADDR_MAP		16	/* number of TLB1 entries */
-#endif
-
 #define CONFIG_SYS_CCSRBAR		0xffe00000
 #define CONFIG_SYS_CCSRBAR_PHYS_LOW	CONFIG_SYS_CCSRBAR
 
@@ -299,8 +294,6 @@
 #define CONFIG_SYS_DDR_MODE_2		0x8000c000
 #define CONFIG_SYS_DDR_INTERVAL		0x0C300000
 #endif
-
-#undef CONFIG_CLOCKS_IN_MHZ
 
 /*
  * Memory map

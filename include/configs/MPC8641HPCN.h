@@ -19,7 +19,6 @@
 
 /* High Level Configuration Options */
 #define CONFIG_LINUX_RESET_VEC	0x100	/* Reset vector used by Linux */
-#define CONFIG_ADDR_MAP		1	/* Use addr map */
 
 /*
  * default CCSRBAR is at 0xff700000
@@ -47,7 +46,6 @@
 #define CONFIG_ENV_OVERWRITE
 
 #define CONFIG_BAT_RW		1	/* Use common BAT rw code */
-#define CONFIG_SYS_NUM_ADDR_MAP 8	/* Number of addr map slots = 8 dbats */
 
 #define CONFIG_ALTIVEC		1
 
@@ -221,8 +219,6 @@ extern unsigned long get_board_sys_clk(unsigned long dummy);
 #define CONFIG_SYS_SDRAM_SIZE	256
 #endif
 
-#undef CONFIG_CLOCKS_IN_MHZ
-
 #define CONFIG_SYS_INIT_RAM_LOCK	1
 #ifndef CONFIG_SYS_INIT_RAM_LOCK
 #define CONFIG_SYS_INIT_RAM_ADDR	0x0fd00000	/* Initial RAM address */
@@ -334,7 +330,6 @@ extern unsigned long get_board_sys_clk(unsigned long dummy);
 
 #define CONFIG_PCI_SCAN_SHOW		/* show pci devices on startup */
 
-#undef CONFIG_EEPRO100
 #undef CONFIG_TULIP
 
 /************************************************************
