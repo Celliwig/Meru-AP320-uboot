@@ -203,6 +203,13 @@ int misc_init_f(void)
 int misc_init_r(void)
 {
 	int rc = 0;
+	bd_t *bd = gd->bd;
+
+	// Should have been setup in board_f but fails there
+	checkcpu();				// Load DM CPU
+	// Part of setup_board_part2
+	bd->bi_intfreq = gd->cpu_clk;		/* Internal Freq, in Hz */
+	bd->bi_busfreq = gd->bus_clk;		/* Bus Freq,      in Hz */
 
 #ifdef CONFIG_LED
 	led_default_state();			// Status LED to blue
