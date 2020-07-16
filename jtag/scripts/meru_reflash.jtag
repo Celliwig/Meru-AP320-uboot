@@ -1,0 +1,7 @@
+cable jlink
+bsdl path bsdl
+detect
+initbus mpc837x mux width=8
+detectflash 0xff000000
+flashmem 0xfff00000 uboot_fw_12.img noverify
+

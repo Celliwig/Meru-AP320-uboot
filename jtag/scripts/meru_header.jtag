@@ -1,0 +1,6 @@
+cable jlink
+bsdl path bsdl
+detect
+initbus mpc837x mux width=8
+detectflash 0xff000000
+
