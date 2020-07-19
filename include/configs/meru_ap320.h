@@ -298,7 +298,7 @@
 	"console=" __stringify(CONSOLE) "\0"				\
 	"netdev=" CONFIG_NETDEV "\0"					\
 	"mtdids=nor0=ff000000.flash\0"					\
-	"mtdparts=mtdparts=ff000000.flash:128k(hwrc)ro,128k(DTB),4096k(kernel),11008k(rootfs),512k(U-boot)ro,256k(env0)ro,256k(env1)ro\0"
+	"mtdparts=mtdparts=ff000000.flash:128k(hwrc)ro,128k(DTB),4096k(kernel),11008k(rootfs),768k(U-boot)ro,128k(env0)ro,128k(env1)ro\0"
 
 //#define CONFIG_NFSBOOTCOMMAND						\
 //	"setenv bootargs root=/dev/nfs rw nfsroot=$serverip:$rootpath"	\
