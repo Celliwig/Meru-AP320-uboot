@@ -28,6 +28,8 @@
 #if defined(CONFIG_OF_LIBFDT)
 #include <linux/libfdt.h>
 #endif
+#include <jffs2/load_kernel.h>
+#include <mtd_node.h>
 #include <linux/delay.h>
 
 #include "../../../arch/powerpc/cpu/mpc83xx/hrcw/hrcw.h"
@@ -242,6 +244,16 @@ int ft_board_setup(void *blob, bd_t *bd)
 	ft_cpu_setup(blob, bd);
 #ifdef CONFIG_PCI
 	ft_pci_setup(blob, bd);
+#endif
+
+#ifdef CONFIG_FDT_FIXUP_PARTITIONS
+	static struct node_info nodes[] = {
+		{ "spansion,s29gl128n", MTD_DEV_TYPE_NOR, }, /* NOR flash */
+	};
+
+	/* Update partition nodes using info from mtdparts env var */
+	puts("   Updating MTD partitions...\n");
+	fdt_fixup_mtdparts(blob, nodes, ARRAY_SIZE(nodes));
 #endif
 
 	return 0;
