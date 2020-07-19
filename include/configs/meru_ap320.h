@@ -294,24 +294,12 @@
 #define CONFIG_FDTFILE			"meru-ap320.dtb"
 
 
-//#define CONFIG_EXTRA_ENV_SETTINGS \
-//	"console=" __stringify(CONSOLE) "\0"			\
-//	"netdev=" CONFIG_NETDEV "\0"					\
-//	"uboot=" CONFIG_UBOOTPATH "\0"					\
-//	"tftpflash=tftpboot $loadaddr $uboot; "				\
-//		"protect off " __stringify(CONFIG_SYS_TEXT_BASE)	\
-//			" +$filesize; "	\
-//		"erase " __stringify(CONFIG_SYS_TEXT_BASE)		\
-//			" +$filesize; "	\
-//		"cp.b $loadaddr " __stringify(CONFIG_SYS_TEXT_BASE)	\
-//			" $filesize; "	\
-//		"protect on " __stringify(CONFIG_SYS_TEXT_BASE)		\
-//			" +$filesize; "	\
-//		"cmp.b $loadaddr " __stringify(CONFIG_SYS_TEXT_BASE)	\
-//			" $filesize\0"	\
-//	"fdtaddr=780000\0"						\
-//	"fdtfile=" CONFIG_FDTFILE "\0"
-//
+#define CONFIG_EXTRA_ENV_SETTINGS \
+	"console=" __stringify(CONSOLE) "\0"				\
+	"netdev=" CONFIG_NETDEV "\0"					\
+	"mtdids=nor0=ff000000.flash\0"					\
+	"mtdparts=mtdparts=ff000000.flash:128k(hwrc)ro,128k(DTB),4096k(kernel),11008k(rootfs),512k(U-boot)ro,256k(env0)ro,256k(env1)ro\0"
+
 //#define CONFIG_NFSBOOTCOMMAND						\
 //	"setenv bootargs root=/dev/nfs rw nfsroot=$serverip:$rootpath"	\
 //	" ip=$ipaddr:$serverip:$gatewayip:$netmask:$hostname:$netdev:off "\
