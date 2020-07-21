@@ -205,7 +205,7 @@ static int mpc83xx_timer_get_count(struct udevice *dev, u64 *count)
 		tbl = mftb();
 	} while (tbu != mftbu());
 
-	*count = (tbu * 0x10000ULL) + tbl;
+	*count = (tbu * 0x100000000ULL) + tbl;
 
 	return 0;
 }
