@@ -295,10 +295,23 @@
 
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
+	"bootdevs=flash\0" \
 	"console=" __stringify(CONSOLE) "\0"				\
 	"netdev=" CONFIG_NETDEV "\0"					\
 	"mtdids=nor0=ff000000.flash\0"					\
-	"mtdparts=mtdparts=ff000000.flash:128k(hwrc)ro,128k(DTB),4096k(kernel),11008k(rootfs),768k(U-boot)ro,128k(env0)ro,128k(env1)ro\0"
+	"mtdparts=mtdparts=ff000000.flash:128k(hwrc)ro,128k(DTB),4096k(kernel),11008k(rootfs),768k(U-boot)ro,128k(env0)ro,128k(env1)ro\0" \
+	"flash_boot=" \
+		"setenv bootargs console=${console},${baudrate} " \
+			"root=/dev/mtdblock3 " \
+			"rootfstype=squashfs,jffs2 " \
+			"${extra}; " \
+		"bootm 0xff040000 - 0xff020000 \0"
+
+#define CONFIG_BOOTCOMMAND \
+	"for btype in ${bootdevs}; do " \
+		"echo; echo Attempting ${btype} boot...; " \
+		"if run ${btype}_boot; then; fi; " \
+	"done"
 
 //#define CONFIG_NFSBOOTCOMMAND						\
 //	"setenv bootargs root=/dev/nfs rw nfsroot=$serverip:$rootpath"	\
