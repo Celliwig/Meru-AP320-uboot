@@ -118,7 +118,7 @@
 
 /* CONFIG_SYS_MONITOR_LEN must be a multiple of CONFIG_ENV_SECT_SIZE */
 #define CONFIG_SYS_MONITOR_LEN		(768 * 1024)	/* Reserve 512 kB for Mon */
-#define CONFIG_SYS_MALLOC_LEN		(256 * 1024)	/* Reserved for malloc */
+#define CONFIG_SYS_MALLOC_LEN		(32 * 1024 * 1024)	/* Reserved for malloc */
 
 /*
  * Serial Port
