@@ -95,6 +95,8 @@
 #define CONFIG_SYS_MAX_FLASH_BANKS	1		/* number of banks */
 #define CONFIG_SYS_FLASH_BANKS_LIST	{ CONFIG_SYS_FLASH_BASE }
 #define CONFIG_SYS_FLASH_SIZE		16		/* FLASH size in MB */
+/* Protect first sector (hwrc) */
+#define CONFIG_SYS_FLASH_AUTOPROTECT_LIST	{ {0xff000000, 0x20000} }
 
 /*
  * U-Boot memory configuration
@@ -305,7 +307,8 @@
 			"root=/dev/mtdblock3 " \
 			"rootfstype=squashfs,jffs2 " \
 			"${extra}; " \
-		"bootm 0xff040000 - 0xff020000 \0"
+		"bootm 0xff040000 - 0xff020000 \0" \
+	"unlock=yes\0"
 
 #define CONFIG_BOOTCOMMAND \
 	"for btype in ${bootdevs}; do " \
