@@ -5,6 +5,17 @@ This has been produced by examining the configuration of the device while the or
 The upshot of this is that all configuration has been for my device, and any variation in the chipsets (DRAM/PHY/etc) will not have been taken
 in to account. So whether this will work on any other device is hard to say (YMMV). So the usual boilerplate applies, no warranties implied or given.
 
+### UART
+The SOC provides 2 UARTs, one is available on the front panel (RJ45 connector), the other is connected to a 4 way header (J2).
+```
+J2
+	*   1 - Vcc (3.3V)
+	*   2 - RX
+	*   3 - TX
+	*   4 - GND
+```
+U-boot's console is on the primary UART (J2), config: 115200,8n1
+
 ### JTAG
 It is highly recommended to have access to a JTAG adapter in case of failure. There is __NO WAY TO RECOVER A BRICKED DEVICE__ without one (well that,
 or using a soldering iron and device programmer). Before starting, backing up the existing ROM is recommended, or at the very least everything from 
@@ -38,3 +49,6 @@ Copy to Flash... done
 ```
  - __0xfff00000__ is the start address of U-boot in the flash ROM (__It is not the start address of the flash ROM__).
  - __0xfff7ffff__ end address of last sector to be unlocked/erased given the new binaries size. (sector size = 128k, 384k < __410k__ < 512k, so 4 sectors)
+
+## Bugs
+ - cfi_flash driver randomly marks sectors as protected (work around, __unlock__ set in U-boot environment which clears extraneous protected bits).
