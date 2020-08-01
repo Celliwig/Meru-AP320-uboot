@@ -52,3 +52,6 @@ Copy to Flash... done
 
 ## Bugs
  - cfi_flash driver randomly marks sectors as protected (work around, __unlock__ set in U-boot environment which clears extraneous protected bits).
+ 
+## ToDo
+- Find/Implement GPIO switches. 
