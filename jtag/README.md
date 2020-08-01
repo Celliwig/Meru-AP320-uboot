@@ -5,6 +5,16 @@ The device has a 16 pin JTAG interface. Some googling turned up:
 
 Which, for the basic signals at least, is the same.
 
+		J4
+	TDO   1	* * 2  Gnd
+	TDI   3	* * 4  
+	      5	* * 6  
+	TCK   7	* * 8  
+	TMS   9	* * 10 Gnd
+	?RST 11	* * 12 Gnd
+	?RST 13	* * 14 
+	     15	* * 16 Gnd
+
 ## UrJTAG
 The Ubuntu package was out of date so had to be built from source. Using a J-Link adapter a basic session would start:
 
